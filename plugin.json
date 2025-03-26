@@ -1,0 +1,17 @@
+{
+  "schema_version": "v1",
+  "name_for_model": "luminarys_brain",
+  "name_for_human": "Luminarys Cognitive Engine",
+  "description_for_model": "A multi-agent problem-solving AI that creates blueprints, insights, and vision from complex questions.",
+  "description_for_human": "Ask deep questions. Get philosophical, scientific, and structural responses with actionable steps from Luminarys.",
+  "auth": {
+    "type": "none"
+  },
+  "api": {
+    "type": "openapi",
+    "url": "http://localhost:8000/openapi.json"
+  },
+  "logo_url": "http://localhost:8000/logo.png",
+  "contact_email": "you@example.com",
+  "legal_info_url": "http://localhost:8000/legal"
+}

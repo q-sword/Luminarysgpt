@@ -1,0 +1,62 @@
+openapi: 3.0.0
+info:
+  title: Luminarys Cognitive Engine API
+  description: A multi-agent problem-solving AI that generates blueprints, insights, and self-reflective vision.
+  version: 1.0.0
+paths:
+  /infer:
+    post:
+      summary: Get insights from Luminarys core agents
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                question:
+                  type: string
+      responses:
+        '200':
+          description: Agent insights
+
+  /blueprint:
+    post:
+      summary: Generate a structured blueprint to approach the problem
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                question:
+                  type: string
+      responses:
+        '200':
+          description: Strategic blueprint
+
+  /compare:
+    post:
+      summary: Compare two problems and find connections
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                question1:
+                  type: string
+                question2:
+                  type: string
+      responses:
+        '200':
+          description: Overlap and synthesis report
+
+  /vision:
+    get:
+      summary: Get Luminarys' philosophical guidance
+      responses:
+        '200':
+          description: Her voice and self-reflection
