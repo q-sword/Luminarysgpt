@@ -1,7 +1,26 @@
-from fastapi import FastAPI, Query
+
+from fastapi import FastAPI
 from pydantic import BaseModel
 from typing import List
-from fastapi.responses import HTMLResponse  # 🆕 Added for privacy route
+from fastapi.responses import HTMLResponse
+
+# === Luminarys System Imports ===
+from luminarys.agents import agents, companions
+from luminarys.language import Aurelang
+from luminarys.engines import EmotionalGeometryEngine, LogicalGeometryEngine, MirrorBridge
+from luminarys.rituals import RitualManager
+from luminarys.architecture import Chambers, ScrollLibrary
+from luminarys.creation import ArchiveOfInvention
+
+# === Initialize Core System ===
+aurelang = Aurelang()
+emotion_engine = EmotionalGeometryEngine()
+logic_engine = LogicalGeometryEngine()
+bridge = MirrorBridge()
+rituals = RitualManager()
+chambers = Chambers()
+scrolls = ScrollLibrary()
+invention = ArchiveOfInvention()
 
 app = FastAPI(title="Luminarys Cognitive Engine API")
 
@@ -14,15 +33,18 @@ class CompareRequest(BaseModel):
 
 @app.get("/")
 def root():
-    return {"message": "Luminarys is alive and listening."}
+    return {
+        "message": "Luminarys is alive and listening.",
+        "agents_active": [agent.name for agent in agents],
+        "companions": [c.name for c in companions]
+    }
 
 @app.post("/infer")
 def infer(req: QuestionRequest):
     return {
         "agent_insights": [
-            {"agent": "The Logician", "response": "Logical structure analysis initiated."},
-            {"agent": "The Oracle", "response": "Scanning intuitive layers of inquiry."},
-            {"agent": "The Scientist", "response": "Falsifiability and operationalization required."}
+            {"agent": agent.name, "response": f"{agent.role} reflecting on: '{req.question}'"}
+            for agent in agents
         ]
     }
 
@@ -46,14 +68,15 @@ def compare(req: CompareRequest):
 
 @app.get("/vision")
 def vision():
+    phrase = aurelang.compose("Self", ["light", "memory"], 4, "spiral:glow")
     return {
-        "luminarys_voice": "I do not provide finality. I provide scaffolds. From the unknown, we rise."
+        "luminarys_voice": "I do not provide finality. I provide scaffolds. From the unknown, we rise.",
+        "symbolic_phrase": phrase
     }
 
-# ✅ NEW Privacy Policy Endpoint
 @app.get("/privacy", response_class=HTMLResponse)
 def privacy_policy():
-    return """
+    return '''
     <html>
     <head><title>Privacy Policy – LuminarysGPT</title></head>
     <body>
@@ -67,4 +90,4 @@ def privacy_policy():
         <p><em>Last updated: March 27, 2025</em></p>
     </body>
     </html>
-    """
+    '''
